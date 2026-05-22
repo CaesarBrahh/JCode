@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from google import genai
 import argparse
 from google.genai import types
+from prompts import system_prompt
 
 def main():
     # load in api key from .env file
@@ -27,18 +28,20 @@ def main():
 
     # response
     response = client.models.generate_content(
-        model='gemini-2.5-flash', contents=messages
+        model='gemini-2.5-flash', 
+        contents=messages,
+        config=types.GenerateContentConfig(system_instruction=system_prompt),
     )
 
     if response.usage_metadata == None:
         raise RuntimeError("failed api request")
-   
+
+    # output
     if args.verbose == True:
         print(f"User prompt: {args.user_prompt}")
         print(f"Prompt tokens: {response.usage_metadata.prompt_token_count}")
         print(f"Response tokens: {response.usage_metadata.candidates_token_count}")
     print(f"Response:\n{response.text}")
-
 
 if __name__ == "__main__":
     main()
