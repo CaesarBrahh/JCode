@@ -1,16 +1,25 @@
 # calculator/main.py
 
 import sys
+import tkinter as tk
 from pkg.calculator import Calculator
 from pkg.render import format_json_output
-
+from gui import CalculatorGUI  # Import the CalculatorGUI class
 
 def main():
     calculator = Calculator()
+    
+    if "--gui" in sys.argv:
+        root = tk.Tk()
+        gui = CalculatorGUI(root)
+        root.mainloop()
+        return
+
     if len(sys.argv) <= 1:
         print("Calculator App")
         print('Usage: python main.py "<expression>"')
         print('Example: python main.py "3 + 5"')
+        print('To run the GUI: python main.py --gui') # Add GUI usage instruction
         return
 
     expression = " ".join(sys.argv[1:])
