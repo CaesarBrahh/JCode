@@ -11,7 +11,7 @@ JCode can:
 
 ## Example
 
-![JCode Demo](media/example.gif)
+![JCode Demo](media/example2.gif)
 
 ## Tech Stack
 
