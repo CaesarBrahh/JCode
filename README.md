@@ -11,7 +11,7 @@ JCode can:
 
 ## Example
 
-<video src="media/example.mov" controls width="700"></video>
+![JCode Demo](media/example.gif)
 
 ## Tech Stack
 
