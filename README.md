@@ -15,10 +15,12 @@ JCode can:
 ## Tech Stack
 
 * Python
+    * os
+    * argparse
+    * dotenv
+    * subprocess
 * Gemini API
-* uv
-* argparse
-* dotenv
+* UV
 
 ## Current Features
 
@@ -37,14 +39,7 @@ Each of the tools available to the agent are implemented inside the `functions/`
 
 After execution, the function result is packaged into a structured tool response and appended back into the conversation history, allowing Gemini to reason about the output, continue iterating, or generate a final natural-language response!
 
-### Core Design
-* `main.py` handles the conversation loop and Gemini API calls.
-* `prompts.py` stores the <i>system prompt</i> that defines the agent's behaviour.
-* `config.py` stores the working directory and any other shared constant.
-* `call_function.py` maps model-requested functions to actual functions, calling them and returning their value.
-* `functions/` contains the actual tool implementations for reading files, writing to files, listing directories, and running Python code.
-
-### Flow Chart (main.py essentially)
+### Architecture Flow (main.py essentially)
 
 ```
 User Prompt + System Prompt
@@ -63,6 +58,32 @@ If Model Stops Requesting Function Calls, Agent Loop Breaks
 ↓
 Final Response Printed to Console
 ```
+
+## Repository Layout
+
+This repository contains both the core JCode agent and several sandbox files generated while testing the agent.
+
+### Core Agent Files
+* `main.py` 
+    * Handles the conversation loop and Gemini API calls.
+* `prompts.py` 
+    * Stores the <i>system prompt</i> that defines the agent's behaviour.
+* `config.py` 
+    * Stores the working directory and any other shared constants.
+* `call_function.py` 
+    * Maps model-requested functions to actual functions, calling them and returning their value.
+* `functions/` 
+    * Contains the actual tool implementations .exposed to the model
+
+### Sandbox / Test Files
+* `calculator/`
+    * Practice project used while testing file reading, writing, and execution.
+* `todo/`
+    * CLI todo app generate by JCode during testing.
+* `lorem.txt`
+    * Large sample file used to test `get_file_content.py`
+* `test_*.py`
+    * Test scripts for individual agent tools.
 
 ## Safety Model
 
